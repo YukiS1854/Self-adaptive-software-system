@@ -1,0 +1,10 @@
+How to?
+1- you need to install "ant" if you mac user.  just run "brew install ant"
+2- go to the code and edit the code, for me i added log in "TrafficMain.java" that was "logger.info("=======welcome=======");" in main method
+3- go to the project "adasim" root directory and build the jar  using
+ant compile
+ant jar-deps
+
+4- Run the jar using
+
+java -jar adasim-1.0.0-deps.jar -I resources/test/config.xml
