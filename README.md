@@ -1,10 +1,10 @@
 # Self-adaptive-software-system
-This it the repository for the project of Self-adaptive software system.
+Making routing algorithm (2 people)
+Yuki
+Wang
+Making No.1 method (1 person)
+abdullah
 
-Examplar
-
-Yuki : ATRP Automated Traffic Routing Problem
-
-Wang : OCCI-monitoring
-
-Iskandar : Body sensor network
+for 2 weeks
+do 3 tasks(Making algorithm, taks No.1, & 3)
+3rd week: we discuss other tasks, & do
