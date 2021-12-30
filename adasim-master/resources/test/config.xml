@@ -1,5 +1,5 @@
 <simulation>
-	<cars  default_strategy="adasim.algorithm.routing.QLearningRoutingAlgorithm" >
+	<cars  default_strategy="adasim.algorithm.routing.TrafficLookaheadRoutingAlgorithm" >
 		<car id="0" start="3" end="2"  car_type="0" />
 		<car id="1" start="4" end="7" car_type="0"  />
 		<car id="2" start="3" end="9" car_type="0" />
