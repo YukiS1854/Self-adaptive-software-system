@@ -27,6 +27,7 @@
  */
 
 package adasim.model.internal;
+
 import org.apache.log4j.Logger;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -41,8 +42,6 @@ import adasim.model.RoadSegment;
 import adasim.model.Vehicle;
 import adasim.model.VehicleType;
 
-
-
 /**
  * The {@link RoadVehicleQueue} handles adasim on a single node.
  * Entering vehicles are assigned to a slot matching the current delay
@@ -54,145 +53,160 @@ import adasim.model.VehicleType;
  *
  */
 public final class RoadVehicleQueue {
-	
+
 	private static Logger logger = Logger.getLogger(RoadSegment.class);
 	/**
 	 * ID for the special queue tracking parked/stopped vehicles.
 	 */
 	private final static int PARKED = -1;
 	private Map<Integer, Set<Vehicle>> queue;
-	
+
 	/**
 	 * Initializes an empty queue.
 	 */
 	public RoadVehicleQueue() {
 		queue = new HashMap<Integer, Set<Vehicle>>();
-		queue.put( PARKED, new HashSet<Vehicle>() );
-		queue.put( 0, new HashSet<Vehicle>() );
+		queue.put(PARKED, new HashSet<Vehicle>());
+		queue.put(0, new HashSet<Vehicle>());
 	}
-	
+
 	/**
-	 * Adds <code>c</code> to the queue in the slot matching the given <code>delay</code>.
+	 * Adds <code>c</code> to the queue in the slot matching the given
+	 * <code>delay</code>.
+	 * 
 	 * @param c
 	 * @param delay
 	 */
-	public void enqueue( Vehicle c, int delay ) {
+	public void enqueue(Vehicle c, int delay) {
 		assert delay >= 0;
-		ensureBucketExists( delay );
-		queue.get( delay ).add(c);
+		ensureBucketExists(delay);
+		queue.get(delay).add(c);
 	}
 
 	/**
 	 * @param delay
 	 */
 	private void ensureBucketExists(int delay) {
-		if ( queue.get(delay) == null ) {
-			queue.put(delay, new HashSet<Vehicle>() );
+		if (queue.get(delay) == null) {
+			queue.put(delay, new HashSet<Vehicle>());
 		}
 	}
 
-	
 	boolean hasSpecailVehicles(Set<Vehicle> listOFCars) {
 		for (Vehicle vehicle : listOFCars) {
-			
-			if(vehicle.getCarType() == VehicleType.specailCAR.ordinal()) {
+
+			if (vehicle.getCarType() == VehicleType.specailCAR.ordinal()) {
 				return true;
 			}
 		}
-		
+
 		return false;
 	}
+
 	/**
 	 * Moves all vehicles one step ahead
+	 * 
 	 * @return the list of vehicles that have reached the tip of the queue
 	 */
 	public Set<Vehicle> moveVehicles() {
-		
-		int keyIndex =0;
+
+		int keyIndex = 0;
 		Set<Vehicle> fs = null;
-		SortedSet<Integer> keys = new TreeSet<Integer>( queue.keySet() );
-		
-		//For debug only
-		for ( Integer key : keys ) {
-			if ( key == PARKED ) continue;	//default cases handled separately
-			Set<Vehicle> c = queue.get(key);	
+		SortedSet<Integer> keys = new TreeSet<Integer>(queue.keySet());
+
+		// For debug only
+		for (Integer key : keys) {
+			if (key == PARKED)
+				continue; // default cases handled separately
+			Set<Vehicle> c = queue.get(key);
 			for (Vehicle vehicle : c) {
 				// vehicle reach destination
-				if(vehicle.isFinished()) {
+				if (vehicle.isFinished()) {
 					continue;
 				}
-				logger.info( "================> Option " + vehicle.vehiclePosition() +
-						", carType:"+ vehicle.getCarType() );
+				logger.info("================> Option " + vehicle.vehiclePosition() +
+						", carType:" + vehicle.getCarType());
 			}
 		}
-		
+
 		// search for special cars. If there is one it should move first
-		for ( Integer key : keys ) {
-			if ( key == PARKED ) continue;	//default cases handled separately
-			Set<Vehicle> c = queue.get(key);	
-			if(hasSpecailVehicles(c)) {
+		for (Integer key : keys) {
+			if (key == PARKED)
+				continue; // default cases handled separately
+			Set<Vehicle> c = queue.get(key);
+			if (hasSpecailVehicles(c)) {
 				keyIndex = key;
-				fs =  queue.remove(keyIndex);
+				fs = queue.remove(keyIndex);
 				break;
 			}
-			
+
 		}
-		
+
 		// in case there is no special car(First come first service)
-		if( fs == null) {
-	 
-			fs =  queue.remove(keyIndex);
+		if (fs == null) {
+
+			fs = queue.remove(keyIndex);
 		}
-		
-		// Re-order the waiting cars in intersection in queue best on (First come first service)
-		 keys = new TreeSet<Integer>( queue.keySet() );
-		for ( Integer key : keys ) {
-			if ( key == PARKED || key < keyIndex ) continue;	//default cases handled separately
+
+		// Re-order the waiting cars in intersection in queue best on (First come first
+		// service)
+		keys = new TreeSet<Integer>(queue.keySet());
+		for (Integer key : keys) {
+			if (key == PARKED || key < keyIndex)
+				continue; // default cases handled separately
 			Set<Vehicle> c = queue.remove(key);
-			queue.put(key-1, c );
+			queue.put(key - 1, c);
 		}
 		return fs;
 	}
-	
+
 	/**
 	 * Removes <code>c</code> from the active list of vehicles.
+	 * 
 	 * @param c
 	 */
-	public void park( Vehicle c ) {
-		removeFromQueue( c );
-		queue.get( PARKED ).add( c );
+	public void park(Vehicle c) {
+		removeFromQueue(c);
+		queue.get(PARKED).add(c);
 	}
 
 	/**
 	 * @param c
 	 */
 	private void removeFromQueue(Vehicle c) {
-		for ( Integer key : queue.keySet() ) {
-			if ( key == PARKED ) continue;
-			if ( queue.get(key).remove(c) ) return;	//short circuit
+		for (Integer key : queue.keySet()) {
+			if (key == PARKED)
+				continue;
+			if (queue.get(key).remove(c))
+				return; // short circuit
 		}
 	}
-	
+
 	/**
-	 * @return <code>true</code> if there are no vehicles in the queue that are waiting to move
+	 * @return <code>true</code> if there are no vehicles in the queue that are
+	 *         waiting to move
 	 */
 	boolean isEmpty() {
-		for ( Integer key : queue.keySet() ) {
-			if ( key == PARKED ) continue;
-			if ( !queue.get(key).isEmpty() ) return false; //short circuit
+		for (Integer key : queue.keySet()) {
+			if (key == PARKED)
+				continue;
+			if (!queue.get(key).isEmpty())
+				return false; // short circuit
 		}
 		return true;
 	}
 
 	/**
-	 * @return the current number of active vehicles in this queue (parked vehicles are ignored)
+	 * @return the current number of active vehicles in this queue (parked vehicles
+	 *         are ignored)
 	 */
 	public int size() {
 		int s = 0;
-		for ( int key : queue.keySet() ) {
-			if ( key == PARKED ) continue;
-			s+= queue.get(key).size();
-		}	
+		for (int key : queue.keySet()) {
+			if (key == PARKED)
+				continue;
+			s += queue.get(key).size();
+		}
 		return s;
 	}
 }
