@@ -1,0 +1,199 @@
+0 [main] INFO adasim.TrafficMain  - Adasim - Version 1.0.0
+8 [main] INFO adasim.TrafficMain  - Loading Simulation
+adasim.algorithm.delay.LinearTrafficDelayFunction
+adasim.algorithm.delay.LinearTrafficDelayFunction
+adasim.algorithm.delay.LinearTrafficDelayFunction
+adasim.algorithm.delay.LinearTrafficDelayFunction
+adasim.algorithm.delay.LinearTrafficDelayFunction
+adasim.algorithm.delay.LinearTrafficDelayFunction
+adasim.algorithm.routing.TrafficLookaheadRoutingAlgorithm
+196 [main] INFO adasim.algorithm.routing.LookaheadShortestPathRoutingAlgorithm  - LookaheadShortestPathRoutingAlgorithm(5,1)
+196 [main] INFO adasim.algorithm.routing.LookaheadShortestPathRoutingAlgorithm  - LookaheadShortestPathRoutingAlgorithm(5,1)
+196 [main] INFO adasim.algorithm.routing.LookaheadShortestPathRoutingAlgorithm  - LookaheadShortestPathRoutingAlgorithm(5,1)
+197 [main] INFO adasim.algorithm.routing.LookaheadShortestPathRoutingAlgorithm  - LookaheadShortestPathRoutingAlgorithm(5,1)
+197 [main] INFO adasim.algorithm.routing.LookaheadShortestPathRoutingAlgorithm  - LookaheadShortestPathRoutingAlgorithm(5,1)
+197 [main] INFO adasim.algorithm.routing.LookaheadShortestPathRoutingAlgorithm  - LookaheadShortestPathRoutingAlgorithm(5,1)
+197 [main] INFO adasim.algorithm.routing.LookaheadShortestPathRoutingAlgorithm  - LookaheadShortestPathRoutingAlgorithm(5,1)
+197 [main] INFO adasim.model.RoadSegment  - ENTER: Vehicle: 0 At: 3
+197 [main] INFO adasim.model.RoadSegment  - ENTER: Vehicle: 1 At: 4
+198 [main] INFO adasim.model.RoadSegment  - ENTER: Vehicle: 2 At: 3
+198 [main] INFO adasim.model.RoadSegment  - ENTER: Vehicle: 3 At: 8
+199 [main] INFO adasim.model.RoadSegment  - ENTER: Vehicle: 4 At: 3
+199 [main] INFO adasim.model.RoadSegment  - ENTER: Vehicle: 5 At: 3
+199 [main] INFO adasim.TrafficMain  - Starting Simulation
+203 [main] INFO adasim.model.TrafficSimulator  - SIMULATION: Cycle: 1
+208 [main] INFO adasim.model.RoadSegment  - ================> Option Vehicle: 0 At: 3, carType:0
+208 [main] INFO adasim.model.RoadSegment  - ================> Option Vehicle: 2 At: 3, carType:0
+209 [main] INFO adasim.model.RoadSegment  - ================> Option Vehicle: 4 At: 3, carType:0
+209 [main] INFO adasim.model.RoadSegment  - ================> Option Vehicle: 5 At: 3, carType:1
+209 [main] INFO adasim.model.RoadSegment  - ================> selected Vehicle: 5 At: 3, carType:1
+211 [main] INFO adasim.algorithm.routing.LookaheadShortestPathRoutingAlgorithm  - PATH: Vehicle: 5 From: 3 To: 2 Path: [1, 5, 2]
+211 [main] INFO adasim.algorithm.routing.LookaheadShortestPathRoutingAlgorithm  - UPDATE: PATH: Vehicle: 5 From: 3 To: 2 Path: [5, 2]
+212 [main] INFO adasim.model.Vehicle  - MOVE: Vehicle: 5 At: 3 To: 1
+212 [main] INFO adasim.model.RoadSegment  - ENTER: Vehicle: 5 At: 3
+212 [main] INFO adasim.model.RoadSegment  - ================> Option Vehicle: 1 At: 4, carType:0
+212 [main] INFO adasim.model.RoadSegment  - ================> Option Vehicle: 3 At: 8, carType:0
+212 [main] INFO adasim.model.TrafficSimulator  - SIMULATION: Cycle: 2
+212 [main] INFO adasim.model.RoadSegment  - ================> Option Vehicle: 5 At: 1, carType:1
+212 [main] INFO adasim.model.RoadSegment  - ================> selected Vehicle: 5 At: 1, carType:1
+213 [main] INFO adasim.algorithm.routing.LookaheadShortestPathRoutingAlgorithm  - UPDATE: PATH: Vehicle: 5 From: 3 To: 2 Path: [2]
+213 [main] INFO adasim.model.Vehicle  - MOVE: Vehicle: 5 At: 1 To: 5
+213 [main] INFO adasim.model.RoadSegment  - ENTER: Vehicle: 5 At: 1
+213 [main] INFO adasim.model.RoadSegment  - ================> Option Vehicle: 0 At: 3, carType:0
+213 [main] INFO adasim.model.RoadSegment  - ================> Option Vehicle: 2 At: 3, carType:0
+213 [main] INFO adasim.model.RoadSegment  - ================> Option Vehicle: 4 At: 3, carType:0
+214 [main] INFO adasim.model.RoadSegment  - ================> Option Vehicle: 1 At: 4, carType:0
+214 [main] INFO adasim.model.RoadSegment  - ================> selected Vehicle: 1 At: 4, carType:0
+215 [main] INFO adasim.algorithm.routing.LookaheadShortestPathRoutingAlgorithm  - PATH: Vehicle: 1 From: 4 To: 7 Path: [6, 5, 0, 7]
+215 [main] INFO adasim.algorithm.routing.LookaheadShortestPathRoutingAlgorithm  - UPDATE: PATH: Vehicle: 1 From: 4 To: 7 Path: [5, 0, 7]
+215 [main] INFO adasim.model.Vehicle  - MOVE: Vehicle: 1 At: 4 To: 6
+215 [main] INFO adasim.model.RoadSegment  - ENTER: Vehicle: 1 At: 4
+215 [main] INFO adasim.model.RoadSegment  - ================> Option Vehicle: 5 At: 5, carType:1
+215 [main] INFO adasim.model.RoadSegment  - ================> selected Vehicle: 5 At: 5, carType:1
+215 [main] INFO adasim.algorithm.routing.LookaheadShortestPathRoutingAlgorithm  - UPDATE: PATH: Vehicle: 5 From: 3 To: 2 Path: []
+216 [main] INFO adasim.model.Vehicle  - MOVE: Vehicle: 5 At: 5 To: 2
+216 [main] INFO adasim.model.RoadSegment  - ENTER: Vehicle: 5 At: 5
+216 [main] INFO adasim.model.Vehicle  - STOP: Vehicle: 5 At: 2
+216 [main] INFO adasim.model.RoadSegment  - ================> Option Vehicle: 1 At: 6, carType:0
+216 [main] INFO adasim.model.RoadSegment  - ================> Option Vehicle: 3 At: 8, carType:0
+216 [main] INFO adasim.model.RoadSegment  - ================> selected Vehicle: 3 At: 8, carType:0
+217 [main] INFO adasim.algorithm.routing.LookaheadShortestPathRoutingAlgorithm  - PATH: Vehicle: 3 From: 8 To: 4 Path: [3, 1, 5, 0, 4]
+217 [main] INFO adasim.algorithm.routing.LookaheadShortestPathRoutingAlgorithm  - UPDATE: PATH: Vehicle: 3 From: 8 To: 4 Path: [1, 5, 0, 4]
+217 [main] INFO adasim.model.Vehicle  - MOVE: Vehicle: 3 At: 8 To: 3
+217 [main] INFO adasim.model.RoadSegment  - ENTER: Vehicle: 3 At: 8
+217 [main] INFO adasim.model.TrafficSimulator  - SIMULATION: Cycle: 3
+217 [main] INFO adasim.model.RoadSegment  - ================> Option Vehicle: 0 At: 3, carType:0
+217 [main] INFO adasim.model.RoadSegment  - ================> Option Vehicle: 2 At: 3, carType:0
+220 [main] INFO adasim.model.RoadSegment  - ================> Option Vehicle: 4 At: 3, carType:0
+220 [main] INFO adasim.model.RoadSegment  - ================> Option Vehicle: 3 At: 3, carType:0
+220 [main] INFO adasim.model.RoadSegment  - ================> selected Vehicle: 0 At: 3, carType:0
+220 [main] INFO adasim.algorithm.routing.LookaheadShortestPathRoutingAlgorithm  - PATH: Vehicle: 0 From: 3 To: 2 Path: [1, 5, 2]
+221 [main] INFO adasim.algorithm.routing.LookaheadShortestPathRoutingAlgorithm  - UPDATE: PATH: Vehicle: 0 From: 3 To: 2 Path: [5, 2]
+221 [main] INFO adasim.model.Vehicle  - MOVE: Vehicle: 0 At: 3 To: 1
+221 [main] INFO adasim.model.RoadSegment  - ENTER: Vehicle: 0 At: 3
+221 [main] INFO adasim.model.RoadSegment  - ================> Option Vehicle: 1 At: 6, carType:0
+221 [main] INFO adasim.model.RoadSegment  - ================> selected Vehicle: 1 At: 6, carType:0
+221 [main] INFO adasim.algorithm.routing.LookaheadShortestPathRoutingAlgorithm  - UPDATE: PATH: Vehicle: 1 From: 4 To: 7 Path: [0, 7]
+223 [main] INFO adasim.model.Vehicle  - MOVE: Vehicle: 1 At: 6 To: 5
+223 [main] INFO adasim.model.RoadSegment  - ENTER: Vehicle: 1 At: 6
+223 [main] INFO adasim.model.TrafficSimulator  - SIMULATION: Cycle: 4
+223 [main] INFO adasim.model.RoadSegment  - ================> Option Vehicle: 0 At: 1, carType:0
+224 [main] INFO adasim.model.RoadSegment  - ================> Option Vehicle: 2 At: 3, carType:0
+224 [main] INFO adasim.model.RoadSegment  - ================> Option Vehicle: 4 At: 3, carType:0
+224 [main] INFO adasim.model.RoadSegment  - ================> Option Vehicle: 3 At: 3, carType:0
+224 [main] INFO adasim.model.RoadSegment  - ================> selected Vehicle: 2 At: 3, carType:0
+224 [main] INFO adasim.algorithm.routing.LookaheadShortestPathRoutingAlgorithm  - PATH: Vehicle: 2 From: 3 To: 9 Path: [1, 5, 9]
+224 [main] INFO adasim.algorithm.routing.LookaheadShortestPathRoutingAlgorithm  - UPDATE: PATH: Vehicle: 2 From: 3 To: 9 Path: [5, 9]
+224 [main] INFO adasim.model.Vehicle  - MOVE: Vehicle: 2 At: 3 To: 1
+224 [main] INFO adasim.model.RoadSegment  - ENTER: Vehicle: 2 At: 3
+224 [main] INFO adasim.model.RoadSegment  - ================> Option Vehicle: 1 At: 5, carType:0
+225 [main] INFO adasim.model.TrafficSimulator  - SIMULATION: Cycle: 5
+225 [main] INFO adasim.model.RoadSegment  - ================> Option Vehicle: 0 At: 1, carType:0
+225 [main] INFO adasim.model.RoadSegment  - ================> Option Vehicle: 2 At: 1, carType:0
+225 [main] INFO adasim.model.RoadSegment  - ================> selected Vehicle: 0 At: 1, carType:0
+226 [main] INFO adasim.algorithm.routing.LookaheadShortestPathRoutingAlgorithm  - UPDATE: PATH: Vehicle: 0 From: 3 To: 2 Path: [2]
+226 [main] INFO adasim.model.Vehicle  - MOVE: Vehicle: 0 At: 1 To: 5
+226 [main] INFO adasim.model.RoadSegment  - ENTER: Vehicle: 0 At: 1
+226 [main] INFO adasim.model.RoadSegment  - ================> Option Vehicle: 4 At: 3, carType:0
+226 [main] INFO adasim.model.RoadSegment  - ================> Option Vehicle: 3 At: 3, carType:0
+226 [main] INFO adasim.model.RoadSegment  - ================> selected Vehicle: 4 At: 3, carType:0
+226 [main] INFO adasim.algorithm.routing.LookaheadShortestPathRoutingAlgorithm  - PATH: Vehicle: 4 From: 3 To: 7 Path: [1, 5, 0, 7]
+226 [main] INFO adasim.algorithm.routing.LookaheadShortestPathRoutingAlgorithm  - UPDATE: PATH: Vehicle: 4 From: 3 To: 7 Path: [5, 0, 7]
+226 [main] INFO adasim.model.Vehicle  - MOVE: Vehicle: 4 At: 3 To: 1
+226 [main] INFO adasim.model.RoadSegment  - ENTER: Vehicle: 4 At: 3
+227 [main] INFO adasim.model.RoadSegment  - ================> Option Vehicle: 1 At: 5, carType:0
+227 [main] INFO adasim.model.RoadSegment  - ================> Option Vehicle: 0 At: 5, carType:0
+227 [main] INFO adasim.model.RoadSegment  - ================> selected Vehicle: 1 At: 5, carType:0
+227 [main] INFO adasim.algorithm.routing.LookaheadShortestPathRoutingAlgorithm  - UPDATE: PATH: Vehicle: 1 From: 4 To: 7 Path: [7]
+227 [main] INFO adasim.model.Vehicle  - MOVE: Vehicle: 1 At: 5 To: 0
+227 [main] INFO adasim.model.RoadSegment  - ENTER: Vehicle: 1 At: 5
+228 [main] INFO adasim.model.TrafficSimulator  - SIMULATION: Cycle: 6
+228 [main] INFO adasim.model.RoadSegment  - ================> Option Vehicle: 1 At: 0, carType:0
+228 [main] INFO adasim.model.RoadSegment  - ================> Option Vehicle: 2 At: 1, carType:0
+228 [main] INFO adasim.model.RoadSegment  - ================> Option Vehicle: 4 At: 1, carType:0
+229 [main] INFO adasim.model.RoadSegment  - ================> Option Vehicle: 3 At: 3, carType:0
+229 [main] INFO adasim.model.RoadSegment  - ================> Option Vehicle: 0 At: 5, carType:0
+229 [main] INFO adasim.model.TrafficSimulator  - SIMULATION: Cycle: 7
+229 [main] INFO adasim.model.RoadSegment  - ================> Option Vehicle: 1 At: 0, carType:0
+229 [main] INFO adasim.model.RoadSegment  - ================> selected Vehicle: 1 At: 0, carType:0
+230 [main] INFO adasim.algorithm.routing.LookaheadShortestPathRoutingAlgorithm  - UPDATE: PATH: Vehicle: 1 From: 4 To: 7 Path: []
+230 [main] INFO adasim.model.Vehicle  - MOVE: Vehicle: 1 At: 0 To: 7
+230 [main] INFO adasim.model.RoadSegment  - ENTER: Vehicle: 1 At: 0
+230 [main] INFO adasim.model.Vehicle  - STOP: Vehicle: 1 At: 7
+230 [main] INFO adasim.model.RoadSegment  - ================> Option Vehicle: 2 At: 1, carType:0
+230 [main] INFO adasim.model.RoadSegment  - ================> Option Vehicle: 4 At: 1, carType:0
+230 [main] INFO adasim.model.RoadSegment  - ================> selected Vehicle: 2 At: 1, carType:0
+231 [main] INFO adasim.algorithm.routing.LookaheadShortestPathRoutingAlgorithm  - UPDATE: PATH: Vehicle: 2 From: 3 To: 9 Path: [9]
+231 [main] INFO adasim.model.Vehicle  - MOVE: Vehicle: 2 At: 1 To: 5
+231 [main] INFO adasim.model.RoadSegment  - ENTER: Vehicle: 2 At: 1
+231 [main] INFO adasim.model.RoadSegment  - ================> Option Vehicle: 3 At: 3, carType:0
+231 [main] INFO adasim.model.RoadSegment  - ================> selected Vehicle: 3 At: 3, carType:0
+232 [main] INFO adasim.algorithm.routing.LookaheadShortestPathRoutingAlgorithm  - UPDATE: PATH: Vehicle: 3 From: 8 To: 4 Path: [5, 0, 4]
+232 [main] INFO adasim.model.Vehicle  - MOVE: Vehicle: 3 At: 3 To: 1
+232 [main] INFO adasim.model.RoadSegment  - ENTER: Vehicle: 3 At: 3
+232 [main] INFO adasim.model.RoadSegment  - ================> Option Vehicle: 0 At: 5, carType:0
+232 [main] INFO adasim.model.RoadSegment  - ================> Option Vehicle: 2 At: 5, carType:0
+232 [main] INFO adasim.model.RoadSegment  - ================> selected Vehicle: 0 At: 5, carType:0
+232 [main] INFO adasim.algorithm.routing.LookaheadShortestPathRoutingAlgorithm  - UPDATE: PATH: Vehicle: 0 From: 3 To: 2 Path: []
+232 [main] INFO adasim.model.Vehicle  - MOVE: Vehicle: 0 At: 5 To: 2
+233 [main] INFO adasim.model.RoadSegment  - ENTER: Vehicle: 0 At: 5
+233 [main] INFO adasim.model.Vehicle  - STOP: Vehicle: 0 At: 2
+233 [main] INFO adasim.model.TrafficSimulator  - SIMULATION: Cycle: 8
+233 [main] INFO adasim.model.RoadSegment  - ================> Option Vehicle: 4 At: 1, carType:0
+233 [main] INFO adasim.model.RoadSegment  - ================> Option Vehicle: 3 At: 1, carType:0
+233 [main] INFO adasim.model.RoadSegment  - ================> selected Vehicle: 4 At: 1, carType:0
+235 [main] INFO adasim.algorithm.routing.LookaheadShortestPathRoutingAlgorithm  - UPDATE: PATH: Vehicle: 4 From: 3 To: 7 Path: [0, 7]
+235 [main] INFO adasim.model.Vehicle  - MOVE: Vehicle: 4 At: 1 To: 5
+235 [main] INFO adasim.model.RoadSegment  - ENTER: Vehicle: 4 At: 1
+235 [main] INFO adasim.model.RoadSegment  - ================> Option Vehicle: 2 At: 5, carType:0
+235 [main] INFO adasim.model.RoadSegment  - ================> Option Vehicle: 4 At: 5, carType:0
+235 [main] INFO adasim.model.TrafficSimulator  - SIMULATION: Cycle: 9
+235 [main] INFO adasim.model.RoadSegment  - ================> Option Vehicle: 3 At: 1, carType:0
+235 [main] INFO adasim.model.RoadSegment  - ================> Option Vehicle: 2 At: 5, carType:0
+238 [main] INFO adasim.model.RoadSegment  - ================> Option Vehicle: 4 At: 5, carType:0
+238 [main] INFO adasim.model.RoadSegment  - ================> selected Vehicle: 2 At: 5, carType:0
+238 [main] INFO adasim.algorithm.routing.LookaheadShortestPathRoutingAlgorithm  - UPDATE: PATH: Vehicle: 2 From: 3 To: 9 Path: []
+238 [main] INFO adasim.model.Vehicle  - MOVE: Vehicle: 2 At: 5 To: 9
+238 [main] INFO adasim.model.RoadSegment  - ENTER: Vehicle: 2 At: 5
+238 [main] INFO adasim.model.Vehicle  - STOP: Vehicle: 2 At: 9
+238 [main] INFO adasim.model.TrafficSimulator  - SIMULATION: Cycle: 10
+238 [main] INFO adasim.model.RoadSegment  - ================> Option Vehicle: 3 At: 1, carType:0
+238 [main] INFO adasim.model.RoadSegment  - ================> selected Vehicle: 3 At: 1, carType:0
+238 [main] INFO adasim.algorithm.routing.LookaheadShortestPathRoutingAlgorithm  - UPDATE: PATH: Vehicle: 3 From: 8 To: 4 Path: [0, 4]
+238 [main] INFO adasim.model.Vehicle  - MOVE: Vehicle: 3 At: 1 To: 5
+239 [main] INFO adasim.model.RoadSegment  - ENTER: Vehicle: 3 At: 1
+239 [main] INFO adasim.model.RoadSegment  - ================> Option Vehicle: 4 At: 5, carType:0
+239 [main] INFO adasim.model.RoadSegment  - ================> Option Vehicle: 3 At: 5, carType:0
+239 [main] INFO adasim.model.RoadSegment  - ================> selected Vehicle: 4 At: 5, carType:0
+239 [main] INFO adasim.algorithm.routing.LookaheadShortestPathRoutingAlgorithm  - UPDATE: PATH: Vehicle: 4 From: 3 To: 7 Path: [7]
+239 [main] INFO adasim.model.Vehicle  - MOVE: Vehicle: 4 At: 5 To: 0
+239 [main] INFO adasim.model.RoadSegment  - ENTER: Vehicle: 4 At: 5
+240 [main] INFO adasim.model.TrafficSimulator  - SIMULATION: Cycle: 11
+240 [main] INFO adasim.model.RoadSegment  - ================> Option Vehicle: 4 At: 0, carType:0
+240 [main] INFO adasim.model.RoadSegment  - ================> Option Vehicle: 3 At: 5, carType:0
+240 [main] INFO adasim.model.TrafficSimulator  - SIMULATION: Cycle: 12
+240 [main] INFO adasim.model.RoadSegment  - ================> Option Vehicle: 4 At: 0, carType:0
+240 [main] INFO adasim.model.RoadSegment  - ================> selected Vehicle: 4 At: 0, carType:0
+240 [main] INFO adasim.algorithm.routing.LookaheadShortestPathRoutingAlgorithm  - UPDATE: PATH: Vehicle: 4 From: 3 To: 7 Path: []
+240 [main] INFO adasim.model.Vehicle  - MOVE: Vehicle: 4 At: 0 To: 7
+240 [main] INFO adasim.model.RoadSegment  - ENTER: Vehicle: 4 At: 0
+241 [main] INFO adasim.model.Vehicle  - STOP: Vehicle: 4 At: 7
+241 [main] INFO adasim.model.RoadSegment  - ================> Option Vehicle: 3 At: 5, carType:0
+241 [main] INFO adasim.model.RoadSegment  - ================> selected Vehicle: 3 At: 5, carType:0
+242 [main] INFO adasim.algorithm.routing.LookaheadShortestPathRoutingAlgorithm  - UPDATE: PATH: Vehicle: 3 From: 8 To: 4 Path: [4]
+242 [main] INFO adasim.model.Vehicle  - MOVE: Vehicle: 3 At: 5 To: 0
+242 [main] INFO adasim.model.RoadSegment  - ENTER: Vehicle: 3 At: 5
+243 [main] INFO adasim.model.TrafficSimulator  - SIMULATION: Cycle: 13
+243 [main] INFO adasim.model.RoadSegment  - ================> Option Vehicle: 3 At: 0, carType:0
+243 [main] INFO adasim.model.TrafficSimulator  - SIMULATION: Cycle: 14
+243 [main] INFO adasim.model.RoadSegment  - ================> Option Vehicle: 3 At: 0, carType:0
+243 [main] INFO adasim.model.RoadSegment  - ================> selected Vehicle: 3 At: 0, carType:0
+243 [main] INFO adasim.algorithm.routing.LookaheadShortestPathRoutingAlgorithm  - UPDATE: PATH: Vehicle: 3 From: 8 To: 4 Path: []
+243 [main] INFO adasim.model.Vehicle  - MOVE: Vehicle: 3 At: 0 To: 4
+243 [main] INFO adasim.model.RoadSegment  - ENTER: Vehicle: 3 At: 0
+246 [main] INFO adasim.model.Vehicle  - STOP: Vehicle: 3 At: 4
+247 [main] INFO adasim.TrafficMain  - Stopping simulation
+257 [main] INFO adasim.TrafficMain  - To view visual map  open visual/index.html
+
+
+

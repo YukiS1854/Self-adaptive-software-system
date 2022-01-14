@@ -22,7 +22,7 @@ import adasim.model.Vehicle;
  */
 public class ConsiderSensorErrorRoutingAlgorithm extends AbstractRoutingAlgorithm {
 
-    private final static Logger logger = Logger.getLogger(LookaheadShortestPathRoutingAlgorithm.class);
+    private final static Logger logger = Logger.getLogger(ConsiderSensorErrorRoutingAlgorithm.class);
 
     private final int lookahead;
     private final int recompute;
@@ -77,7 +77,7 @@ public class ConsiderSensorErrorRoutingAlgorithm extends AbstractRoutingAlgorith
         this.lookahead = lookahead;
         this.recompute = recomp;
         this.steps = 0;
-        logger.info("LookaheadShortestPathRoutingAlgorithm(" + lookahead + "," + recompute + ")");
+        logger.info("ConsiderSensorErrorRoutingAlgorithm(" + lookahead + "," + recompute + ")");
     }
 
     public List<RoadSegment> getPath(RoadSegment source, RoadSegment target) {
@@ -100,15 +100,18 @@ public class ConsiderSensorErrorRoutingAlgorithm extends AbstractRoutingAlgorith
         ArrayList<RoadSegment> open = new ArrayList<RoadSegment>();
         ArrayList<RoadSegment> close = new ArrayList<RoadSegment>();
 
+        source.getNeighbors().forEach((it) -> {
+            open.add(it);
+        });
         while (!open.contains(target)) {
+            open.clear();
             close.add(source);
             source.getNeighbors().forEach((it) -> {
                 open.add(it);
             });
             source = getMinDelay(open);
-            open.clear();
+
         }
-        close.add(target);
 
         return close;
     }
