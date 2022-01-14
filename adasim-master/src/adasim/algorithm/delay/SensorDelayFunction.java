@@ -1,14 +1,16 @@
 package adasim.algorithm.delay;
 
+import java.util.Random;
+
 public class SensorDelayFunction implements TrafficDelayFunction {
 
-    @Override
-    public int getDelay(int weight, int cutoff, int number) {
-        double num = Math.random() * 100;
-        if (num > 99.9) {
-            return Integer.MAX_VALUE;
+    public int getDelay(int weight, int capacity, int number) {
+        double prob = Math.random() * 100;
+        Random generator = new Random();
+        if (prob > 99) {
+            return generator.nextInt(10);
         } else
-            return 0;
+            return Math.max(weight, number - capacity + weight);
     }
 
 }
