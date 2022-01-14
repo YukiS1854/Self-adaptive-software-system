@@ -1,6 +1,7 @@
 package adasim.algorithm.routing;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -19,7 +20,7 @@ import adasim.model.Vehicle;
  * @author Jochen Wuttke - wuttkej@gmail.com
  *
  */
-public class AStarRoutingAlgorithm extends AbstractRoutingAlgorithm {
+public class ConsiderSensorErrorRoutingAlgorithm extends AbstractRoutingAlgorithm {
 
     private final static Logger logger = Logger.getLogger(LookaheadShortestPathRoutingAlgorithm.class);
 
@@ -36,7 +37,7 @@ public class AStarRoutingAlgorithm extends AbstractRoutingAlgorithm {
      * unmodified weight of each node, and for this reason will never recompute
      * the path.
      */
-    public AStarRoutingAlgorithm() {
+    public ConsiderSensorErrorRoutingAlgorithm() {
         this(0);
     }
 
@@ -54,7 +55,7 @@ public class AStarRoutingAlgorithm extends AbstractRoutingAlgorithm {
      * 
      * @param lookahead
      */
-    public AStarRoutingAlgorithm(int lookahead) {
+    public ConsiderSensorErrorRoutingAlgorithm(int lookahead) {
         this(lookahead, lookahead);
     }
 
@@ -72,7 +73,7 @@ public class AStarRoutingAlgorithm extends AbstractRoutingAlgorithm {
      * 
      * @param lookahead
      */
-    public AStarRoutingAlgorithm(int lookahead, int recomp) {
+    public ConsiderSensorErrorRoutingAlgorithm(int lookahead, int recomp) {
         this.lookahead = lookahead;
         this.recompute = recomp;
         this.steps = 0;
@@ -80,7 +81,7 @@ public class AStarRoutingAlgorithm extends AbstractRoutingAlgorithm {
     }
 
     public List<RoadSegment> getPath(RoadSegment source, RoadSegment target) {
-        return dijkstra(graph.getRoadSegments(), source, target, lookahead);
+        return dijkstra(graph.getRoadSegments(), source, target);
     }
 
     /**
@@ -94,84 +95,50 @@ public class AStarRoutingAlgorithm extends AbstractRoutingAlgorithm {
      * @param l
      * @return the shortest past from <code>source</code> to <code>target</code>
      */
-    private List<RoadSegment> dijkstra(List<RoadSegment> nodes, RoadSegment source, RoadSegment target, int l) {
-        int size = nodes.size();
-        int[] dist = new int[size];
-        int[] previous = new int[size];
-        Set<Integer> q = new HashSet<Integer>();
+    private List<RoadSegment> dijkstra(List<RoadSegment> nodes, RoadSegment source, RoadSegment target) {
 
         ArrayList<RoadSegment> open = new ArrayList<RoadSegment>();
         ArrayList<RoadSegment> close = new ArrayList<RoadSegment>();
 
         while (!open.contains(target)) {
+            close.add(source);
             source.getNeighbors().forEach((it) -> {
                 open.add(it);
             });
-            open.forEach((neighbor) -> {
-
-            });
-            close.add(source);
+            source = getMinDelay(open);
+            open.clear();
         }
+        close.add(target);
 
-        init(dist, previous, getIndex(nodes, source), q);
-        while (!q.isEmpty()) {
-            int current = getIndexOfMin(q, dist);
-            if (dist[current] == Integer.MAX_VALUE)
-                break;
-            q.remove(current);
+        return close;
+    }
 
-            for (RoadSegment node : nodes.get(current).getNeighbors()) {
-                int depth = getCurrentDepth(previous, nodes, source, nodes.get(current));
-
-                // if we ever make vehicle extensible, then we have to query the class of the
-                // configure vehicle
-                int t = dist[current]
-                        + (depth <= l ? node.getCurrentDelay(Vehicle.class) : node.getDelay(Vehicle.class));
-                int thisIndex = getIndex(nodes, node);
-                if (t < dist[thisIndex]) {
-                    dist[thisIndex] = t;
-                    previous[thisIndex] = current;
+    private RoadSegment getMinDelay(List<RoadSegment> neighbors) {
+        ArrayList<Integer> delayLs = new ArrayList<Integer>();
+        ArrayList<Integer> errorTestLs = new ArrayList<Integer>();
+        ArrayList<Integer> sortDelayLs = new ArrayList<Integer>();
+        int minDelay;
+        neighbors.forEach((neighbor) -> {
+            int delay;
+            errorTestLs.add(neighbor.getCurrentDelay(Vehicle.class));
+            errorTestLs.add(neighbor.getCurrentDelay(Vehicle.class));
+            if (errorTestLs.get(1) != errorTestLs.get(0)) {
+                int newDelay = neighbor.getCurrentDelay(Vehicle.class);
+                while (!errorTestLs.contains(newDelay)) {
+                    errorTestLs.add(newDelay);
+                    newDelay = neighbor.getCurrentDelay(Vehicle.class);
                 }
-            }
-        }
-        return reconstructPath(previous, nodes, source, target);
-    }
+                delay = newDelay;
+            } else
+                delay = errorTestLs.get(0);
 
-    /**
-     * @param previous
-     * @param nodes
-     * @param source
-     * @param current
-     * @return the current depth of the search path
-     */
-    private int getCurrentDepth(int[] previous, List<RoadSegment> nodes,
-            RoadSegment source, RoadSegment current) {
-        List<RoadSegment> path = reconstructPath(previous, nodes, source, current);
-        if (path == null)
-            return 1;
-        else
-            return path.size() + 1;
-    }
-
-    /**
-     * @param previous map to previous nodes on a path
-     * @param nodes    list of all nodes
-     * @param source   ID of source node
-     * @param target   ID of target node
-     * @return the path constructed from the intermediate data structures passed in
-     */
-    private List<RoadSegment> reconstructPath(int[] previous, List<RoadSegment> nodes, RoadSegment source,
-            RoadSegment target) {
-        int ti = getIndex(nodes, target);
-        if (previous[ti] == -1)
-            return null; // no path
-        LinkedList<RoadSegment> path = new LinkedList<RoadSegment>();
-        int current = ti;
-        do {
-            path.push(nodes.get(current));
-            current = previous[current];
-        } while (current != getIndex(nodes, source) && previous[current] != -1);
-        return path;
+            delayLs.add(delay);
+            sortDelayLs.add(delay);
+        });
+        minDelay = delayLs.get(0);
+        sortDelayLs.sort(Comparator.naturalOrder());
+        int minIndex = delayLs.lastIndexOf(sortDelayLs.get(0));
+        return neighbors.get(minIndex);
     }
 
     /**
@@ -201,23 +168,6 @@ public class AStarRoutingAlgorithm extends AbstractRoutingAlgorithm {
                 min = i;
         }
         return min;
-    }
-
-    /**
-     * @param dist
-     * @param previous
-     * @param source
-     */
-    private void init(int[] dist, int[] previous, int source, Set<Integer> q) {
-        for (int i = 0; i < dist.length; i++) {
-            if (i == source) {
-                dist[i] = 0;
-            } else {
-                dist[i] = Integer.MAX_VALUE;
-            }
-            previous[i] = -1;
-            q.add(i);
-        }
     }
 
     /*
@@ -256,7 +206,7 @@ public class AStarRoutingAlgorithm extends AbstractRoutingAlgorithm {
      * @param start
      */
     private List<RoadSegment> getPath(RoadSegment start) {
-        List<RoadSegment> p = dijkstra(graph.getRoadSegments(), start, target, lookahead);
+        List<RoadSegment> p = dijkstra(graph.getRoadSegments(), start, target);
         if (p == null) {
             finished = true;
         }
