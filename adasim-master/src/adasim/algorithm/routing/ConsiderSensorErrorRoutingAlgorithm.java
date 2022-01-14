@@ -2,8 +2,7 @@ package adasim.algorithm.routing;
 
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.HashSet;
-import java.util.LinkedList;
+
 import java.util.List;
 import java.util.Set;
 
@@ -12,14 +11,6 @@ import org.apache.log4j.Logger;
 import adasim.model.RoadSegment;
 import adasim.model.Vehicle;
 
-/**
- * This car strategy is the base implementation for all strategies
- * using Dijkstras shortest path algorithm on node weights and
- * adasim delays.
- * 
- * @author Jochen Wuttke - wuttkej@gmail.com
- *
- */
 public class ConsiderSensorErrorRoutingAlgorithm extends AbstractRoutingAlgorithm {
 
     private final static Logger logger = Logger.getLogger(ConsiderSensorErrorRoutingAlgorithm.class);
@@ -30,49 +21,14 @@ public class ConsiderSensorErrorRoutingAlgorithm extends AbstractRoutingAlgorith
     private int steps;
     private boolean finished = false;
 
-    /**
-     * The default constructor builds this strategy with a lookahead of 0.
-     * <p>
-     * A lookahead of 0 means that the strategy will only consider the
-     * unmodified weight of each node, and for this reason will never recompute
-     * the path.
-     */
     public ConsiderSensorErrorRoutingAlgorithm() {
         this(0);
     }
 
-    /**
-     * Creates a new strategy object.
-     * The lookahead parameter defines how far ahead the strategy considers adasim
-     * in addition to node
-     * delays. This parameter also defines how often the strategy recomputes the
-     * path
-     * it follows.
-     * <p>
-     * For a lookahead of <em>n</em> it will consider adasim for <em>n</em> nodes
-     * from the
-     * current node, and will recompute the path every <em>n</em> moves.
-     * 
-     * @param lookahead
-     */
     public ConsiderSensorErrorRoutingAlgorithm(int lookahead) {
         this(lookahead, lookahead);
     }
 
-    /**
-     * Creates a new strategy object.
-     * The lookahead parameter defines how far ahead the strategy considers adasim
-     * in addition to node
-     * delays. This parameter also defines how often the strategy recomputes the
-     * path
-     * it follows.
-     * <p>
-     * For a lookahead of <em>n</em> it will consider adasim for <em>n</em> nodes
-     * from the
-     * current node, and will recompute the path every <em>recomp</em> moves.
-     * 
-     * @param lookahead
-     */
     public ConsiderSensorErrorRoutingAlgorithm(int lookahead, int recomp) {
         this.lookahead = lookahead;
         this.recompute = recomp;
@@ -84,17 +40,6 @@ public class ConsiderSensorErrorRoutingAlgorithm extends AbstractRoutingAlgorith
         return dijkstra(graph.getRoadSegments(), source, target);
     }
 
-    /**
-     * Computes Dijkstra's shortest path algorithm on the graph represented by
-     * <code>nodes</code>, and returns a list of nodes that represent
-     * the shortest past from <code>source</code> to <code>target</code>.
-     * 
-     * @param nodes
-     * @param source
-     * @param target
-     * @param l
-     * @return the shortest past from <code>source</code> to <code>target</code>
-     */
     private List<RoadSegment> dijkstra(List<RoadSegment> nodes, RoadSegment source, RoadSegment target) {
 
         ArrayList<RoadSegment> open = new ArrayList<RoadSegment>();
