@@ -61,6 +61,9 @@ import adasim.util.ReflectionUtils;
  */
 public class SimulationXMLBuilder {
 
+	public int maxDelay=1;
+	public int minDelay=10000;
+
 	private static final Logger logger = Logger.getLogger(SimulationXMLBuilder.class);
 
 
@@ -108,6 +111,18 @@ public class SimulationXMLBuilder {
 	public RoadSegment buildNode( Element nodeElement, FilterMap defaultFilters ) {
 		int id = Integer.parseInt( nodeElement.getAttributeValue( "id" ) );
 		int delay = Integer.parseInt( nodeElement.getAttributeValue( "delay" ) );
+		
+		System.out.println("car ID :" + id + " Time Travel " + delay);
+		
+		if(delay > maxDelay)
+			maxDelay = delay;
+		if(delay < minDelay)
+			minDelay = delay;
+		
+		System.out.println("Max Travel Time Is" + maxDelay);
+		System.out.println("Min Travel Time Is" + minDelay);
+		
+		
 		TrafficDelayFunction ss = (TrafficDelayFunction)loadClassFromAttribute(nodeElement, "strategy" ); 
 		RoadSegment gn = new RoadSegment( id, ss, delay, getCapacity(nodeElement)) ;
 		Element filters = nodeElement.getChild( "filters" );
