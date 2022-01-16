@@ -7,7 +7,7 @@ import java.util.List;
 public class EvaluationHelper {
     private static EvaluationHelper instance = new EvaluationHelper();
     private int pathCost;
-    private HashMap<Integer, CostStruct> costMap;
+    private HashMap<Integer, CostStruct> costMap = new HashMap<Integer, CostStruct>();
     private ArrayList<Integer> tempCostList = new ArrayList<Integer>();
     private ArrayList<RoadSegment> tempPathList = new ArrayList<>();
 
@@ -70,8 +70,8 @@ public class EvaluationHelper {
         ArrayList<Integer> pathCost = new ArrayList<>();
 
         CostStruct(ArrayList<RoadSegment> path, ArrayList<Integer> pathCost) {
-            this.path = path;
-            this.pathCost = pathCost;
+            this.path.addAll(path);
+            this.pathCost.addAll(pathCost);
         }
 
     }
