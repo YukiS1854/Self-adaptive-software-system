@@ -1,10 +1,15 @@
 package adasim.algorithm.routing;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import org.apache.log4j.Logger;
 
@@ -55,7 +60,8 @@ public class SimpleRoutingAlgorithm extends AbstractRoutingAlgorithm {
             open.clear();
             close.add(source);
             source.getNeighbors().forEach((it) -> {
-                open.add(it);
+                if (!close.contains(it))
+                    open.add(it);
             });
             source = getMinDelay(open);
         }
@@ -63,12 +69,12 @@ public class SimpleRoutingAlgorithm extends AbstractRoutingAlgorithm {
         full.add(target);
         evaluationHelper.setPathList(full);
         evaluationHelper.setCostMap(vehicle.getID());
-        return close;
+        full.remove(0);
+        return full;
     }
 
     private RoadSegment getMinDelay(List<RoadSegment> neighbors) {
         ArrayList<Integer> delayLs = new ArrayList<Integer>();
-        ArrayList<Integer> errorTestLs = new ArrayList<Integer>();
         ArrayList<Integer> sortDelayLs = new ArrayList<Integer>();
         int minDelay;
         neighbors.forEach((neighbor) -> {
@@ -82,6 +88,8 @@ public class SimpleRoutingAlgorithm extends AbstractRoutingAlgorithm {
         evaluationHelper.setVehiclePathCostList(sortDelayLs.get(0));
         int minIndex = delayLs.lastIndexOf(sortDelayLs.get(0));
 
+        delayLs.clear();
+        sortDelayLs.clear();
         return neighbors.get(minIndex);
     }
 
@@ -126,8 +134,8 @@ public class SimpleRoutingAlgorithm extends AbstractRoutingAlgorithm {
         if (path == null) {
             path = getPath(source);
             logger.info(pathLogMessage());
-            logger.info(evaluationHelper.getCostMapPathList(vehicle.getID()));
-            logger.info(evaluationHelper.getCostMapCostList(vehicle.getID()));
+            logger.info("path for this vehicle: " + evaluationHelper.getCostMapPathList(vehicle.getID()));
+            logger.info("cost list " + evaluationHelper.getCostMapCostList(vehicle.getID()));
         }
         assert path != null || finished;
         if (path == null || path.size() == 0) {

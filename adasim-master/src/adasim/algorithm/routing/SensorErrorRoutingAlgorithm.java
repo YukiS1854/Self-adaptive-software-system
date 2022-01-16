@@ -1,10 +1,15 @@
 package adasim.algorithm.routing;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import org.apache.log4j.Logger;
 
@@ -53,17 +58,33 @@ public class SensorErrorRoutingAlgorithm extends AbstractRoutingAlgorithm {
         });
         while (!open.contains(target)) {
             open.clear();
+            close.add(source);
             source.getNeighbors().forEach((it) -> {
-                open.add(it);
+                if (!close.contains(it))
+                    open.add(it);
             });
             source = getMinDelay(open);
-            close.add(source);
         }
         full.addAll(close);
         full.add(target);
         evaluationHelper.setPathList(full);
         evaluationHelper.setCostMap(vehicle.getID());
-        return close;
+        full.remove(0);
+        return full;
+    }
+
+    private int majorityElement(ArrayList<Integer> nums) {
+        int[] tempNums = new int[nums.size()];
+        for (int i = 0; i < tempNums.length; i++) {
+            tempNums[i] = nums.get(i);
+        }
+        Map<Integer, Long> map = Arrays.stream(tempNums).boxed()
+                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+        long limit = tempNums.length >> 1;
+        for (Map.Entry<Integer, Long> entry : map.entrySet())
+            if (entry.getValue() > limit)
+                return entry.getKey();
+        return -1;
     }
 
     private RoadSegment getMinDelay(List<RoadSegment> neighbors) {
@@ -73,21 +94,22 @@ public class SensorErrorRoutingAlgorithm extends AbstractRoutingAlgorithm {
         int minDelay;
         neighbors.forEach((neighbor) -> {
             int delay;
-            errorTestLs.add(neighbor.getCurrentDelay(Vehicle.class));
-            errorTestLs.add(neighbor.getCurrentDelay(Vehicle.class));
-            // for (int i = 0; i < 100; i++) {
             // errorTestLs.add(neighbor.getCurrentDelay(Vehicle.class));
-            // }
+            // errorTestLs.add(neighbor.getCurrentDelay(Vehicle.class));
+            for (int i = 0; i < 100; i++) {
+                errorTestLs.add(neighbor.getCurrentDelay(Vehicle.class));
+            }
+            delay = majorityElement(errorTestLs);
 
-            if (errorTestLs.get(1) != errorTestLs.get(0)) {
-                int newDelay = neighbor.getCurrentDelay(Vehicle.class);
-                while (!errorTestLs.contains(newDelay)) {
-                    errorTestLs.add(newDelay);
-                    newDelay = neighbor.getCurrentDelay(Vehicle.class);
-                }
-                delay = newDelay;
-            } else
-                delay = errorTestLs.get(0);
+            // if (errorTestLs.get(1) != errorTestLs.get(0)) {
+            // int newDelay = neighbor.getCurrentDelay(Vehicle.class);
+            // while (!errorTestLs.contains(newDelay)) {
+            // errorTestLs.add(newDelay);
+            // newDelay = neighbor.getCurrentDelay(Vehicle.class);
+            // }
+            // delay = newDelay;
+            // } else
+            // delay = errorTestLs.get(0);
 
             delayLs.add(delay);
             sortDelayLs.add(delay);
@@ -145,8 +167,8 @@ public class SensorErrorRoutingAlgorithm extends AbstractRoutingAlgorithm {
         if (path == null) {
             path = getPath(source);
             logger.info(pathLogMessage());
-            logger.info(evaluationHelper.getCostMapPathList(vehicle.getID()));
-            logger.info(evaluationHelper.getCostMapCostList(vehicle.getID()));
+            logger.info("path for this vehicle: " + evaluationHelper.getCostMapPathList(vehicle.getID()));
+            logger.info("cost list " + evaluationHelper.getCostMapCostList(vehicle.getID()));
         }
         assert path != null || finished;
         if (path == null || path.size() == 0) {

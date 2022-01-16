@@ -3,6 +3,9 @@ package adasim.model;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import javax.security.auth.callback.TextOutputCallback;
 
 public class EvaluationHelper {
     private static EvaluationHelper instance = new EvaluationHelper();
@@ -13,6 +16,17 @@ public class EvaluationHelper {
 
     private EvaluationHelper() {
         this.pathCost = 0;
+    }
+
+    public int getTotalCost() {
+        int totalCost = 0;
+        for (Map.Entry<Integer, CostStruct> entry : costMap.entrySet()) {
+            CostStruct costStruct = entry.getValue();
+            for (int k = 0; k < costStruct.pathCost.size(); k++) {
+                totalCost += costStruct.pathCost.get(k);
+            }
+        }
+        return totalCost;
     }
 
     public static EvaluationHelper getInstance() {

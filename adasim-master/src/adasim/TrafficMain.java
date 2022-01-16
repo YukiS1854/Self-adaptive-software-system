@@ -85,6 +85,7 @@ public class TrafficMain {
 			TrafficSimulator tsim = SimulationXMLReader.buildSimulator(new File(opts.getInputFile()));
 			logger.info("Starting Simulation");
 			tsim.run();
+			logger.info("Total delay:" + evaHelper.getTotalCost());
 			logger.info("Stopping simulation");
 		} catch (ConfigurationException e) { // Catches configuration error in XML file
 			logger.info("Exiting due to configuration error " + e.getMessage());
