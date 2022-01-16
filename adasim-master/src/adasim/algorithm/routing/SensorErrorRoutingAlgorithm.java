@@ -8,6 +8,7 @@ import java.util.Set;
 
 import org.apache.log4j.Logger;
 
+import adasim.model.EvaluationHelper;
 import adasim.model.RoadSegment;
 import adasim.model.Vehicle;
 
@@ -55,7 +56,6 @@ public class SensorErrorRoutingAlgorithm extends AbstractRoutingAlgorithm {
                 open.add(it);
             });
             source = getMinDelay(open);
-
         }
 
         return close;
@@ -85,6 +85,7 @@ public class SensorErrorRoutingAlgorithm extends AbstractRoutingAlgorithm {
         });
         minDelay = delayLs.get(0);
         sortDelayLs.sort(Comparator.naturalOrder());
+        EvaluationHelper.getInstance().addPathCost(sortDelayLs.get(0));
         int minIndex = delayLs.lastIndexOf(sortDelayLs.get(0));
         return neighbors.get(minIndex);
     }

@@ -2,7 +2,7 @@ package adasim.model;
 
 public class EvaluationHelper {
     private static EvaluationHelper instance = new EvaluationHelper();
-    private double pathCost;
+    private int pathCost;
 
     private EvaluationHelper() {
         this.pathCost = 0;
@@ -12,15 +12,15 @@ public class EvaluationHelper {
         return instance;
     }
 
-    public void setPathCost(Double cost) {
+    public void setPathCost(Integer cost) {
         this.pathCost = cost;
     }
 
-    public void addPathCost(Double cost) {
+    public void addPathCost(Integer cost) {
         this.pathCost += cost;
     }
 
-    public Double getPathCost() {
+    public Integer getPathCost() {
         return this.pathCost;
     }
 
