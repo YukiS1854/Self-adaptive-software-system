@@ -33,7 +33,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.apache.log4j.BasicConfigurator;
@@ -89,15 +93,24 @@ public class TrafficMain {
 			tsim.run();
 			logger.info("Total delay:" + evaHelper.getTotalCost());
 			try {
-				BufferedWriter out = new BufferedWriter(new FileWriter("output/pathAndCost.txt"));
+				BufferedWriter out = new BufferedWriter(new FileWriter("output/pathAndCost.json"));
+				out.write("{ \"vehicles\":[");
+				ArrayList<Integer> keyArray = new ArrayList<>();
+				keyArray.addAll(evaHelper.getMap().keySet());
+				keyArray.sort(Comparator.naturalOrder());
+				int max = keyArray.get(keyArray.size() - 1);
 				for (Map.Entry<Integer, CostStruct> entry : evaHelper.getMap().entrySet()) {
 					CostStruct costStruct = entry.getValue();
-					out.write("vehicle: " + entry.getKey() + "\n");
-					out.write("path: " + costStruct.getPath() + "\n");
-					out.write("path cost: " + costStruct.getPathCost() + "\n");
-					out.write("========" + "\n");
-
+					out.write("{\"vehicle\":" + entry.getKey() + "," + "\n");
+					out.write("\"path\":" + costStruct.getPath() + "," + "\n");
+					out.write("\"cost\":" + costStruct.getPathCost() + "\n");
+					if (entry.getKey() != max)
+						out.write("}," + "\n");
+					else
+						out.write("}" + "\n");
+					// if(entry.getKey()==evaHelper.getMap().keySet().)
 				}
+				out.write("]}");
 				out.close();
 			} catch (IOException e) {
 			}
