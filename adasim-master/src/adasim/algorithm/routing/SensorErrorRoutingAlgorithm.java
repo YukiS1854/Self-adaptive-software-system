@@ -53,11 +53,11 @@ public class SensorErrorRoutingAlgorithm extends AbstractRoutingAlgorithm {
         });
         while (!open.contains(target)) {
             open.clear();
-            close.add(source);
             source.getNeighbors().forEach((it) -> {
                 open.add(it);
             });
             source = getMinDelay(open);
+            close.add(source);
         }
         full.addAll(close);
         full.add(target);
@@ -75,6 +75,10 @@ public class SensorErrorRoutingAlgorithm extends AbstractRoutingAlgorithm {
             int delay;
             errorTestLs.add(neighbor.getCurrentDelay(Vehicle.class));
             errorTestLs.add(neighbor.getCurrentDelay(Vehicle.class));
+            // for (int i = 0; i < 100; i++) {
+            // errorTestLs.add(neighbor.getCurrentDelay(Vehicle.class));
+            // }
+
             if (errorTestLs.get(1) != errorTestLs.get(0)) {
                 int newDelay = neighbor.getCurrentDelay(Vehicle.class);
                 while (!errorTestLs.contains(newDelay)) {
@@ -87,12 +91,16 @@ public class SensorErrorRoutingAlgorithm extends AbstractRoutingAlgorithm {
 
             delayLs.add(delay);
             sortDelayLs.add(delay);
+            errorTestLs.clear();
         });
         minDelay = delayLs.get(0);
         sortDelayLs.sort(Comparator.naturalOrder());
         evaluationHelper.setVehiclePathCostList(sortDelayLs.get(0));
         int minIndex = delayLs.lastIndexOf(sortDelayLs.get(0));
 
+        delayLs.clear();
+        errorTestLs.clear();
+        sortDelayLs.clear();
         return neighbors.get(minIndex);
     }
 
