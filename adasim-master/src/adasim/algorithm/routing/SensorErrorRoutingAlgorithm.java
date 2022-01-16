@@ -14,7 +14,7 @@ import adasim.model.Vehicle;
 
 public class SensorErrorRoutingAlgorithm extends AbstractRoutingAlgorithm {
 
-    private final static Logger logger = Logger.getLogger(SensorErrorRoutingAlgorithm.class);
+    private final static Logger logger = Logger.getLogger(SimpleRoutingAlgorithm.class);
 
     private final int lookahead;
     private final int recompute;
@@ -87,6 +87,8 @@ public class SensorErrorRoutingAlgorithm extends AbstractRoutingAlgorithm {
         sortDelayLs.sort(Comparator.naturalOrder());
         EvaluationHelper.getInstance().addPathCost(sortDelayLs.get(0));
         int minIndex = delayLs.lastIndexOf(sortDelayLs.get(0));
+        logger.info("lowest delay: " + sortDelayLs.get(0));
+        logger.info("delay cost: " + EvaluationHelper.getInstance().getPathCost());
         return neighbors.get(minIndex);
     }
 
