@@ -21,6 +21,7 @@ public class SimpleRoutingAlgorithm extends AbstractRoutingAlgorithm {
     private List<RoadSegment> path;
     private int steps;
     private boolean finished = false;
+    private EvaluationHelper evaluationHelper = EvaluationHelper.getInstance();
 
     public SimpleRoutingAlgorithm() {
         this(0);
@@ -45,6 +46,7 @@ public class SimpleRoutingAlgorithm extends AbstractRoutingAlgorithm {
 
         ArrayList<RoadSegment> open = new ArrayList<RoadSegment>();
         ArrayList<RoadSegment> close = new ArrayList<RoadSegment>();
+        ArrayList<RoadSegment> full = new ArrayList<RoadSegment>();
 
         source.getNeighbors().forEach((it) -> {
             open.add(it);
@@ -57,12 +59,16 @@ public class SimpleRoutingAlgorithm extends AbstractRoutingAlgorithm {
             });
             source = getMinDelay(open);
         }
-
+        full.addAll(close);
+        full.add(target);
+        evaluationHelper.setPathList(full);
+        evaluationHelper.setCostMap(vehicle.getID());
         return close;
     }
 
     private RoadSegment getMinDelay(List<RoadSegment> neighbors) {
         ArrayList<Integer> delayLs = new ArrayList<Integer>();
+        ArrayList<Integer> errorTestLs = new ArrayList<Integer>();
         ArrayList<Integer> sortDelayLs = new ArrayList<Integer>();
         int minDelay;
         neighbors.forEach((neighbor) -> {
@@ -73,10 +79,9 @@ public class SimpleRoutingAlgorithm extends AbstractRoutingAlgorithm {
         });
         minDelay = delayLs.get(0);
         sortDelayLs.sort(Comparator.naturalOrder());
-        EvaluationHelper.getInstance().addPathCost(sortDelayLs.get(0));
+        evaluationHelper.setVehiclePathCostList(sortDelayLs.get(0));
         int minIndex = delayLs.lastIndexOf(sortDelayLs.get(0));
-        logger.info("lowest delay: " + sortDelayLs.get(0));
-        logger.info("delay cost: " + EvaluationHelper.getInstance().getPathCost());
+
         return neighbors.get(minIndex);
     }
 
@@ -121,6 +126,8 @@ public class SimpleRoutingAlgorithm extends AbstractRoutingAlgorithm {
         if (path == null) {
             path = getPath(source);
             logger.info(pathLogMessage());
+            logger.info(evaluationHelper.getCostMapPathList(vehicle.getID()));
+            logger.info(evaluationHelper.getCostMapCostList(vehicle.getID()));
         }
         assert path != null || finished;
         if (path == null || path.size() == 0) {
