@@ -190,8 +190,18 @@ public final class RoadSegment extends AbstractAdasimAgent implements Comparable
 	/**
 	 * @return the adasim dependent delay at this node.
 	 */
-	public int getCurrentDelay( Class<?> caller ) {		
-		int cd = closed ? Integer.MAX_VALUE : ss.getDelay(delay, capacity, queue.size());
+	public int getCurrentDelay( Class<?> caller ) {
+		int size = queue.size();
+		for(Integer key : queue.getqueue().keySet()){
+			for(Vehicle v : queue.getqueue().get(key)){
+				if(v.getStrategy().isFilter()==1){
+					logger.info("PrivacyFilter works.");
+					size = size - 1;
+				}
+			}
+
+		}
+		int cd = closed ? Integer.MAX_VALUE : ss.getDelay(delay, capacity, size);
 		return filterValue(cd, caller);
 	}
 	
