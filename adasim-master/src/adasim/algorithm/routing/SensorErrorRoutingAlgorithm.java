@@ -14,7 +14,7 @@ import adasim.model.Vehicle;
 
 public class SensorErrorRoutingAlgorithm extends AbstractRoutingAlgorithm {
 
-    private final static Logger logger = Logger.getLogger(SimpleRoutingAlgorithm.class);
+    private final static Logger logger = Logger.getLogger(SensorErrorRoutingAlgorithm.class);
 
     private final int lookahead;
     private final int recompute;
@@ -34,14 +34,14 @@ public class SensorErrorRoutingAlgorithm extends AbstractRoutingAlgorithm {
         this.lookahead = lookahead;
         this.recompute = recomp;
         this.steps = 0;
-        logger.info("ConsiderSensorErrorRoutingAlgorithm(" + lookahead + "," + recompute + ")");
+        logger.info("SensorErrorRoutingAlgorithm(" + lookahead + "," + recompute + ")");
     }
 
     public List<RoadSegment> getPath(RoadSegment source, RoadSegment target) {
-        return dijkstra(graph.getRoadSegments(), source, target);
+        return routing(graph.getRoadSegments(), source, target);
     }
 
-    private List<RoadSegment> dijkstra(List<RoadSegment> nodes, RoadSegment source, RoadSegment target) {
+    private List<RoadSegment> routing(List<RoadSegment> nodes, RoadSegment source, RoadSegment target) {
 
         ArrayList<RoadSegment> open = new ArrayList<RoadSegment>();
         ArrayList<RoadSegment> close = new ArrayList<RoadSegment>();
@@ -157,7 +157,7 @@ public class SensorErrorRoutingAlgorithm extends AbstractRoutingAlgorithm {
      * @param start
      */
     private List<RoadSegment> getPath(RoadSegment start) {
-        List<RoadSegment> p = dijkstra(graph.getRoadSegments(), start, target);
+        List<RoadSegment> p = routing(graph.getRoadSegments(), start, target);
         if (p == null) {
             finished = true;
         }

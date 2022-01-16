@@ -38,10 +38,10 @@ public class SimpleRoutingAlgorithm extends AbstractRoutingAlgorithm {
     }
 
     public List<RoadSegment> getPath(RoadSegment source, RoadSegment target) {
-        return dijkstra(graph.getRoadSegments(), source, target);
+        return routing(graph.getRoadSegments(), source, target);
     }
 
-    private List<RoadSegment> dijkstra(List<RoadSegment> nodes, RoadSegment source, RoadSegment target) {
+    private List<RoadSegment> routing(List<RoadSegment> nodes, RoadSegment source, RoadSegment target) {
 
         ArrayList<RoadSegment> open = new ArrayList<RoadSegment>();
         ArrayList<RoadSegment> close = new ArrayList<RoadSegment>();
@@ -145,7 +145,7 @@ public class SimpleRoutingAlgorithm extends AbstractRoutingAlgorithm {
      * @param start
      */
     private List<RoadSegment> getPath(RoadSegment start) {
-        List<RoadSegment> p = dijkstra(graph.getRoadSegments(), start, target);
+        List<RoadSegment> p = routing(graph.getRoadSegments(), start, target);
         if (p == null) {
             finished = true;
         }
