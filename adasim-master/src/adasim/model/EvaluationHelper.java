@@ -29,6 +29,10 @@ public class EvaluationHelper {
         return totalCost;
     }
 
+    public HashMap<Integer, CostStruct> getMap() {
+        return this.costMap;
+    }
+
     public static EvaluationHelper getInstance() {
         return instance;
     }
@@ -79,14 +83,4 @@ public class EvaluationHelper {
         return this.pathCost;
     }
 
-    class CostStruct {
-        ArrayList<RoadSegment> path = new ArrayList<>();
-        ArrayList<Integer> pathCost = new ArrayList<>();
-
-        CostStruct(ArrayList<RoadSegment> path, ArrayList<Integer> pathCost) {
-            this.path.addAll(path);
-            this.pathCost.addAll(pathCost);
-        }
-
-    }
 }

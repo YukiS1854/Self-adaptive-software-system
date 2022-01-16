@@ -33,12 +33,14 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.apache.log4j.BasicConfigurator;
 import org.jdom.JDOMException;
 
 import adasim.model.ConfigurationException;
+import adasim.model.CostStruct;
 import adasim.model.EvaluationHelper;
 import adasim.model.RoadSegment;
 import adasim.model.TrafficSimulator;
@@ -86,6 +88,19 @@ public class TrafficMain {
 			logger.info("Starting Simulation");
 			tsim.run();
 			logger.info("Total delay:" + evaHelper.getTotalCost());
+			try {
+				BufferedWriter out = new BufferedWriter(new FileWriter("output/pathAndCost.txt"));
+				for (Map.Entry<Integer, CostStruct> entry : evaHelper.getMap().entrySet()) {
+					CostStruct costStruct = entry.getValue();
+					out.write("vehicle: " + entry.getKey() + "\n");
+					out.write("path: " + costStruct.getPath() + "\n");
+					out.write("path cost: " + costStruct.getPathCost() + "\n");
+					out.write("========" + "\n");
+
+				}
+				out.close();
+			} catch (IOException e) {
+			}
 			logger.info("Stopping simulation");
 		} catch (ConfigurationException e) { // Catches configuration error in XML file
 			logger.info("Exiting due to configuration error " + e.getMessage());
