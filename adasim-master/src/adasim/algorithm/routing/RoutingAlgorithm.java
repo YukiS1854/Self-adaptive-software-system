@@ -73,4 +73,5 @@ public interface RoutingAlgorithm {
 	
 	public void setVehicle( Vehicle v );
 
+	public int isFilter();
 }

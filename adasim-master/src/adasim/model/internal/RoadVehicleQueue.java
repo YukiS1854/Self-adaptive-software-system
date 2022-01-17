@@ -83,6 +83,10 @@ public final class RoadVehicleQueue {
 		queue.get(delay).add(c);
 	}
 
+	public Map<Integer, Set<Vehicle>> getqueue() {
+		return queue;
+	}
+
 	/**
 	 * @param delay
 	 */

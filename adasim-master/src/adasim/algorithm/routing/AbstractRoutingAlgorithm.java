@@ -67,6 +67,8 @@ public abstract class AbstractRoutingAlgorithm implements RoutingAlgorithm {
 	public void setVehicle( Vehicle v) {
 		this.vehicle = v;
 	}
-	
+
+	@Override
+	public int isFilter() {return 0;}
 
 }
