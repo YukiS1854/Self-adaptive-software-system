@@ -91,28 +91,31 @@ public class TrafficMain {
 			TrafficSimulator tsim = SimulationXMLReader.buildSimulator(new File(opts.getInputFile()));
 			logger.info("Starting Simulation");
 			tsim.run();
-			logger.info("Total delay:" + evaHelper.getTotalCost());
-			try {
-				BufferedWriter out = new BufferedWriter(new FileWriter("output/pathAndCost.json"));
-				out.write("{ \"vehicles\":[");
-				ArrayList<Integer> keyArray = new ArrayList<>();
-				keyArray.addAll(evaHelper.getMap().keySet());
-				keyArray.sort(Comparator.naturalOrder());
-				int max = keyArray.get(keyArray.size() - 1);
-				for (Map.Entry<Integer, CostStruct> entry : evaHelper.getMap().entrySet()) {
-					CostStruct costStruct = entry.getValue();
-					out.write("{\"vehicle\":" + entry.getKey() + "," + "\n");
-					out.write("\"path\":" + costStruct.getPath() + "," + "\n");
-					out.write("\"cost\":" + costStruct.getPathCost() + "\n");
-					if (entry.getKey() != max)
-						out.write("}," + "\n");
-					else
-						out.write("}" + "\n");
-					// if(entry.getKey()==evaHelper.getMap().keySet().)
+
+			if (evaHelper.getTotalCost() != 0) {
+				logger.info("Total delay:" + evaHelper.getTotalCost());
+				try {
+					BufferedWriter out = new BufferedWriter(new FileWriter("output/pathAndCost.json"));
+					out.write("{ \"vehicles\":[");
+					ArrayList<Integer> keyArray = new ArrayList<>();
+					keyArray.addAll(evaHelper.getMap().keySet());
+					keyArray.sort(Comparator.naturalOrder());
+					int max = keyArray.get(keyArray.size() - 1);
+					for (Map.Entry<Integer, CostStruct> entry : evaHelper.getMap().entrySet()) {
+						CostStruct costStruct = entry.getValue();
+						out.write("{\"vehicle\":" + entry.getKey() + "," + "\n");
+						out.write("\"path\":" + costStruct.getPath() + "," + "\n");
+						out.write("\"cost\":" + costStruct.getPathCost() + "\n");
+						if (entry.getKey() != max)
+							out.write("}," + "\n");
+						else
+							out.write("}" + "\n");
+						// if(entry.getKey()==evaHelper.getMap().keySet().)
+					}
+					out.write("]}");
+					out.close();
+				} catch (IOException e) {
 				}
-				out.write("]}");
-				out.close();
-			} catch (IOException e) {
 			}
 			logger.info("Stopping simulation");
 		} catch (ConfigurationException e) { // Catches configuration error in XML file
