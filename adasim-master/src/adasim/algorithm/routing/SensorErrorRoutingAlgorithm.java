@@ -94,21 +94,21 @@ public class SensorErrorRoutingAlgorithm extends AbstractRoutingAlgorithm {
         int minDelay;
         neighbors.forEach((neighbor) -> {
             int delay;
-            errorTestLs.add(neighbor.getCurrentDelay(Vehicle.class));
-            errorTestLs.add(neighbor.getCurrentDelay(Vehicle.class));
-            //for (int i = 0; i < 100; i++) {
-               // errorTestLs.add(neighbor.getCurrentDelay(Vehicle.class));
-            //}
-            //delay = majorityElement(errorTestLs);
-            if (errorTestLs.get(1) != errorTestLs.get(0)) {
-                int newDelay = neighbor.getCurrentDelay(Vehicle.class);
-                while (!errorTestLs.contains(newDelay)) {
-                    errorTestLs.add(newDelay);
-                    newDelay = neighbor.getCurrentDelay(Vehicle.class);
-                }
-                delay = newDelay;
-                } else
-            delay = errorTestLs.get(0);
+            // errorTestLs.add(neighbor.getCurrentDelay(Vehicle.class));
+            // errorTestLs.add(neighbor.getCurrentDelay(Vehicle.class));
+            for (int i = 0; i < 100; i++) {
+                errorTestLs.add(neighbor.getCurrentDelay(Vehicle.class));
+            }
+            delay = majorityElement(errorTestLs);
+            // if (errorTestLs.get(1) != errorTestLs.get(0)) {
+            // int newDelay = neighbor.getCurrentDelay(Vehicle.class);
+            // while (!errorTestLs.contains(newDelay)) {
+            // errorTestLs.add(newDelay);
+            // newDelay = neighbor.getCurrentDelay(Vehicle.class);
+            // }
+            // delay = newDelay;
+            // } else
+            // delay = errorTestLs.get(0);
 
             delayLs.add(delay);
             sortDelayLs.add(delay);
