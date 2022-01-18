@@ -1,11 +1,6 @@
 # Self-adaptive-software-system
-Making routing algorithm (2 people)
-Yuki
-Wang
+We developed Uncertainty filter and Privacy filter as algorithm of the sensor.
+We sometimes get wrong value by uncertainty filter.
+If some vehicle set privacy filter, other vehicle couldn't access the vehicle's information, so route decision agent decide solution without the information.
 
-Making No.1 method (1 person)
-abdullah
-
-for 2 weeks
-do 3 tasks(Making algorithm, taks No.1, & 3)
-3rd week: we discuss other tasks, & do
+And we make a visualize function as python file to show the estimated cost and route solution for each vehicles.
